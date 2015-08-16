@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from hair import * 
-import random
 import sys
 from PIL import Image
 

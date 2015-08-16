@@ -11,7 +11,6 @@ gifs = {
 
 
 from hair import * 
-import random
 import sys
 from PIL import Image
 
