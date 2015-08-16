@@ -8,16 +8,15 @@ from PIL import Image
 h = hair()
 h.FPS = 40 
 
-giffile = sys.argv[1]
-
-giffps = 10
-if len(sys.argv) > 2:
+try:
+    giffile = sys.argv[1]
     giffps = int(sys.argv[2])
-
-gifloops = 10
-if len(sys.argv) > 3:
     gifloops = int(sys.argv[3])
-
+except:
+    print sys.argv[0] + " file.gif fps loops"
+    print 
+    print "Example ./gif.py gifs/zelda-fire.gif 3 10"
+    quit()
 
 maxheight = h.ROWS
 maxwidth = h.COLS
