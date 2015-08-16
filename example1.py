@@ -33,5 +33,4 @@ for gif in gifs.keys():
     x += w + padding
 
 while True:
-    #ih.text("KNOXMAKERS",7,2,12,(0,100,255),"ttf/MonteCarloFixed12.ttf")
     ih.update()
