@@ -22,7 +22,7 @@ class hair:
     def pixelinit(self):
         return [None,] * self.n_pixels
 
-    def ttf(self,txt,x,y,height,color=(255,255,255),ttf=None):
+    def ttf(self,txt,x,y,height,color=(255,255,255),ttf=None,threshold=100):
         img = Image.new("RGBA",(2000,500), (0,0,0))
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype(ttf,100)
@@ -32,11 +32,11 @@ class hair:
         width = int(w * (float(height)/h))
         img = Image.new("RGBA",size,(0,0,0))
         draw = ImageDraw.Draw(img)
-        draw.text((0,0), txt, color, font=font)
+        draw.text((0,0), txt, color, font=font )
 
         pixels = self.pixelinit()
         pixels = self.img2pixel(pixels,img,x,y,width,height)
-        self.put_pixels(pixels,(0,0,0))
+        self.put_pixels(pixels,threshold)
 
 
     def img2pixel(self,pixels,img,x,y,w,h):
@@ -58,7 +58,7 @@ class hair:
                     pass
         return pixels
 
-    def loadgif(self,gif,x,y,w,h,fps,loop=1,framejump=0):
+    def loadgif(self,gif,x,y,w,h,fps,loop=1,framejump=0,threshold=None):
         frames = []
         i = 0
         while gif:
@@ -74,7 +74,7 @@ class hair:
             for frame in frames:
                 frameahead = int(self.FPS/fps) * ( (i*len(frames)) + numframe )
                 if len(self._BUFFER) > frameahead+framejump:
-                    frame = self.overlay_pixels(self._BUFFER[frameahead+framejump], frame, (0,0,0))
+                    frame = self.overlay_pixels(self._BUFFER[frameahead+framejump], frame, threshold)
                 self.buffer_pixels(frame,frameahead+framejump)
                 numframe += 1
         return framejump + frameahead
@@ -89,7 +89,7 @@ class hair:
                     pass
         return pixels
 
-    def overlay_pixels(self,pixels1,pixels2=None,BGCOLOR=None):
+    def overlay_pixels(self,pixels1,pixels2=None,threshold=None):
         if pixels2 == None:
             pixels = list(self._CURRENT)
             newpixels = list(pixels1)
@@ -98,14 +98,14 @@ class hair:
             newpixels = list(pixels2)
 
         for i in range(self.n_pixels):
-            if newpixels[i] and newpixels[i] != BGCOLOR:
+            if newpixels[i] and (threshold==None or sum(newpixels[i]) > threshold):
                 pixels[i] = newpixels[i] 
         return pixels
 
 
-    def put_pixels(self,pixels,BGCOLOR=None):
+    def put_pixels(self,pixels,threshold=None):
         try:
-            self._BUFFER[0] = self.overlay_pixels(self._BUFFER[0],pixels,BGCOLOR)
+            self._BUFFER[0] = self.overlay_pixels(self._BUFFER[0],pixels,threshold)
         except:
             self._BUFFER.append(list(pixels))
 

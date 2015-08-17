@@ -5,14 +5,16 @@ import sys
 from PIL import Image
 
 ih = hair()
-ih.FPS = 10 
+ih.FPS = 5 
 
-ih.loadgif(Image.open("gifs/fire.gif"), 0, 0, 95, 16, 5, 200 )
+frameahead = ih.loadgif(Image.open("gifs/fire.gif"), 0, 0, 95, 16, 5, 3 )
+frameahead = ih.loadgif(Image.open("gifs/fire3.gif"), 0, 0, 95, 16, 5, 20, frameahead)
 
 frameahead = 0
-for i in xrange(70):
-    frameahead = ih.loadgif(Image.open("gifs/zelda-fire.gif"),i,0,18,16, 5, 2, frameahead)
-    print frameahead
-
+for j in xrange(5):
+    for i in xrange(40):
+        frameahead = ih.loadgif(Image.open("gifs/invader.gif"),i*2,0,16,16, 5, 1, frameahead, 100) + 1
+        #def loadgif(self,gif,x,y,w,h,fps,loop=1,framejump=0,threshold=None):
+        ih.loadgif(Image.open("gifs/goomba.gif"),i*2,0,16,16, 5, 1, frameahead+40, 100) 
 while True:
     ih.update()
