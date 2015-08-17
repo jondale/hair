@@ -32,10 +32,10 @@ if width > maxwidth:
 
 # def loadgif(self,gif,x,y,w,h,fps,repeat=0,framejump=0):
 tot = int(h.COLS/width)
-padding = int((h.COLS - (tot * width)) / (tot+1))
+padding = 0 #int((h.COLS - (tot * width)) / (tot+1))
 
 for i in xrange(int(h.COLS/width)):
-    frameahead = h.loadgif(Image.open(giffile), 1 + padding + int(i*(width+padding)), 0, width, height, giffps, gifloops, i*10)
+    frameahead = h.loadgif(Image.open(giffile), padding + int(i*(width+padding)), 0, width, height, giffps, gifloops, i*10)
 
 last_percent = percent = 100
 total_buffers = len(h._BUFFER)

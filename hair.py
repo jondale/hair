@@ -60,12 +60,12 @@ class hair:
 
     def loadgif(self,gif,x,y,w,h,fps,loop=1,framejump=0,threshold=None):
         frames = []
-        i = 0
+        #i = 0
         while gif:
             try:
                 frames.append(self.img2pixel(self.pixelinit(),gif,x,y,w,h))
                 gif.seek( gif.tell()+1 )
-                i += 1
+                #i += 1
             except EOFError:
                 break
         frameahead = 0
@@ -119,7 +119,7 @@ class hair:
 
     def clear(self):
         self._BUFFER = []
-        self._CURRENT = [(0,0,0),] * n_pixels
+        self._CURRENT = [(0,0,0),] * self.n_pixels
         self._BUFFER.append(self._CURRENT)
 
     def update(self):

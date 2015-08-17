@@ -7,7 +7,7 @@ from PIL import Image
 ih = hair()
 ih.FPS = 5 
 
-frameahead = ih.loadgif(Image.open("gifs/fire.gif"), 0, 0, 95, 16, 5, 3 )
+frameahead = ih.loadgif(Image.open("gifs/fire.gif"), 0, 0, 95, 16, 5, 11 )
 frameahead = ih.loadgif(Image.open("gifs/fire3.gif"), 0, 0, 95, 16, 5, 20, frameahead)
 
 frameahead = 0
